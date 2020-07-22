@@ -140,7 +140,7 @@ int main(void)
         return 1;
     }
 
-    // MaKe the socket ready to listen.
+    // Make the socket ready to listen.
     const int backlog = 16;
     if (listen(sock_fd, backlog) < 0)
     {
