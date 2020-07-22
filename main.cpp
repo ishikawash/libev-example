@@ -35,17 +35,18 @@ void log_error(const std::string &message)
 void on_receive(ev::io &watcher, int revents)
 {
     const int sock_flags = 0;
-    std::array<char, 1024> buf;
+    std::array<char, 16> buf;
+    buf.fill('\0');
 
     // Receive data from the socket.
-    ssize_t read_size = recv(watcher.fd, buf.data(), buf.size(), sock_flags);
+    ssize_t read_size = recv(watcher.fd, buf.data(), buf.size() - 1, sock_flags);
     if (read_size <= 0)
     {
         async_close(watcher);
         log_error(fmt::format("Connection will be closed ({})", watcher.fd));
         return;
     }
-    fmt::print("Read from client ({}): {}\n", watcher.fd, read_size);
+    fmt::print("Read from client ({}): {}\n", watcher.fd, buf.data());
 
     // Send data to the socket.
     if (send(watcher.fd, buf.data(), read_size, sock_flags) < 0)
