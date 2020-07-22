@@ -38,7 +38,7 @@ void on_receive(ev::io &watcher, int revents)
     std::array<char, 1024> buf;
 
     // Receive data from the socket.
-    size_t read_size = recv(watcher.fd, buf.data(), buf.size(), sock_flags);
+    ssize_t read_size = recv(watcher.fd, buf.data(), buf.size(), sock_flags);
     if (read_size <= 0)
     {
         async_close(watcher);
