@@ -1,0 +1,3 @@
+[submodule "osc/tinyosc"]
+	path = osc/tinyosc
+	url = git@github.com:ishikawash/tinyosc.git
